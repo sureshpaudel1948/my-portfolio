@@ -4,9 +4,9 @@ export default function Experience() {
   const responsibilities = [
     "Built company website from scratch, iterating UI/UX layouts",
     "Developed CMS with Node.js + PostgreSQL",
-    "Created TDS Report Generator for PDF-based reporting",
-    "Designed AI chatbot for internal policy FAQs using Python",
-    "Conducted rigorous API testing using Postman"
+    "Created TDS Report Generator for PDF-based TDS Certificate retrieval",
+    "Designed AI based chatbot for internal policy FAQs using Python",
+    "Conducted API integration of third-party services",
   ];
 
   return (

@@ -2,6 +2,7 @@
 
 import { ArrowDown } from "lucide-react";
 
+
 export default function Hero() {
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
@@ -18,7 +19,7 @@ export default function Hero() {
             <div className="absolute -inset-1 bg-gradient-to-r from-blue-400 to-blue-600 rounded-full blur opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-pulse"></div>
             <div className="relative w-48 h-48 rounded-full overflow-hidden border-4 border-white shadow-2xl">
               <img
-                src="https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=400"
+                src="/best.jpg"
                 alt="Anupam Paudel"
                 className="w-full h-full object-cover"
               />
@@ -37,7 +38,7 @@ export default function Hero() {
             </p>
           </div>
 
-          <div className="flex flex-wrap gap-4 justify-center pt-4">
+          <div className="flex flex-wrap gap-4 justify-center pt-0">
             <button
               onClick={() => scrollToSection("contact")}
               className="px-8 py-3 bg-white text-blue-900 rounded-lg font-semibold hover:bg-blue-50 transform hover:scale-105 transition duration-300 shadow-lg"
