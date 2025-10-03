@@ -33,7 +33,7 @@ export default function Contact() {
       icon: Linkedin,
       label: "LinkedIn",
       username: "suresh-paudel",
-      href: "https://www.linkedin.com/in/suresh-paudel"
+      href: "https://www.linkedin.com/in/suresh-paudel-844344205/"
     },
     {
       icon: Github,
