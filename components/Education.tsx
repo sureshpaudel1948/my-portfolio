@@ -11,13 +11,13 @@ export default function Education() {
     {
       degree: "+2 Science",
       institution: "Prativa Secondary School, Pokhara",
-      period: "Completed: 2018",
+      period: "Completed: 2020",
       description: ""
     },
     {
       degree: "SEE",
       institution: "Beni Community Secondary School, Myagdi",
-      period: "Completed: 2016",
+      period: "Completed: 2018",
       description: ""
     }
   ];
