@@ -6,25 +6,25 @@ export default function Projects() {
       title: "CityPay Official Website",
       description: "Built a responsive website with maps, app download features, and CMS",
       url: "https://citywallet.com.np",
-      image: "https://images.pexels.com/photos/6476587/pexels-photo-6476587.jpeg?auto=compress&cs=tinysrgb&w=600"
+      image: "/citypay.png"
     },
     {
       title: "PSP Association Nepal",
       description: "Professional website for the Payment Service Providers Association of Nepal",
       url: "https://pspan.org.np",
-      image: "https://images.pexels.com/photos/3183197/pexels-photo-3183197.jpeg?auto=compress&cs=tinysrgb&w=600"
+      image: "/psp.png"
     },
     {
       title: "Stellar HR Consultancy",
       description: "Corporate website for Malta-based HR consultancy firm",
-      url: "#",
-      image: "https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=600"
+      url: "https://sureshpaudel1948.github.io/bigedu-malta-cms/",
+      image: "/stellar.png"
     },
     {
       title: "Param Satya Website",
       description: "Engaging fact-based platform built with HTML, CSS, JavaScript",
-      url: "#",
-      image: "https://images.pexels.com/photos/1181467/pexels-photo-1181467.jpeg?auto=compress&cs=tinysrgb&w=600"
+      url: "https://sureshpaudel1948.github.io/CODSOFT-Web-Dev-Task-2-Landing-Page/",
+      image: "/param.png"
     }
   ];
 
