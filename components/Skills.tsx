@@ -1,108 +1,168 @@
-import { Code as Code2, Database, Wrench, Palette } from "lucide-react";
+import {
+  Code2,
+  LayoutTemplate,
+  Server,
+  Database,
+  FlaskConical,
+  Wrench,
+  Container,
+  BarChart3,
+  Bot,
+  GitBranch,
+  Palette,
+  type LucideIcon,
+} from "lucide-react";
+import SectionHeading from "@/components/SectionHeading";
+import Reveal from "@/components/Reveal";
+import { cn } from "@/lib/utils";
+
+type SkillCategory = {
+  title: string;
+  path: string;
+  icon: LucideIcon;
+  skills: string[];
+  featured?: boolean;
+  note?: string;
+};
+
+const skillCategories: SkillCategory[] = [
+  {
+    title: "Frontend Engineering",
+    path: "src/frontend",
+    icon: LayoutTemplate,
+    featured: true,
+    note: "Component-driven UIs, design systems and micro-frontend architecture for products at scale.",
+    skills: [
+      "React.js",
+      "Next.js",
+      "Gatsby",
+      "HTML5",
+      "CSS3",
+      "SCSS (BEM, SMACSS)",
+      "MUI",
+      "Micro-frontends",
+      "Webpack Module Federation",
+    ],
+  },
+  {
+    title: "Languages",
+    path: "src/languages",
+    icon: Code2,
+    skills: ["JavaScript", "TypeScript", "ECMAScript", "Python"],
+  },
+  {
+    title: "Backend",
+    path: "src/backend",
+    icon: Server,
+    skills: ["Node.js", "Express", "NestJS", "REST", "GraphQL", "WebSockets"],
+  },
+  {
+    title: "Data, Search & Messaging",
+    path: "src/data",
+    icon: Database,
+    skills: ["PostgreSQL", "MongoDB", "Redis", "Kafka", "Elasticsearch", "Lucene Query"],
+  },
+  {
+    title: "Testing",
+    path: "tests/",
+    icon: FlaskConical,
+    skills: ["Jest", "React Testing Library", "Mocha", "Chai", "Enzyme"],
+  },
+  {
+    title: "Build Tools",
+    path: "config/build",
+    icon: Wrench,
+    skills: ["Webpack", "Babel", "Gulp", "Grunt"],
+  },
+  {
+    title: "DevOps & CI/CD",
+    path: ".github/workflows",
+    icon: Container,
+    skills: ["Docker", "Kubernetes", "GitHub Actions", "GitLab CI", "Linux", "Bash"],
+  },
+  {
+    title: "Visualization",
+    path: "src/charts",
+    icon: BarChart3,
+    skills: ["D3.js", "Chart.js", "Canvas"],
+  },
+  {
+    title: "AI Integration",
+    path: "src/ai",
+    icon: Bot,
+    skills: ["MCP Servers", "Agentic AI workflows", "OpenAPI integrations", "Search-backed AI"],
+  },
+  {
+    title: "Version Control & PM",
+    path: ".git",
+    icon: GitBranch,
+    skills: ["Git", "GitHub", "GitLab", "Jira"],
+  },
+  {
+    title: "UI/UX Design",
+    path: "design/",
+    icon: Palette,
+    skills: ["Figma", "Canva", "Photoshop"],
+  },
+];
 
 export default function Skills() {
-  const skillCategories = [
-    {
-      title: "Programming Languages",
-      icon: Code2,
-      skills: ["HTML", "CSS", "JavaScript", "PHP", "C", "C++", "Python", "Java", "Node.js"],
-      color: "blue"
-    },
-    {
-      title: "Frameworks",
-      icon: Code2,
-      skills: ["React.js", "Next.js"],
-      color: "blue"
-    },
-    {
-      title: "Databases",
-      icon: Database,
-      skills: ["MySQL", "PostgreSQL"],
-      color: "green"
-    },
-    {
-      title: "Tools & Technologies",
-      icon: Wrench,
-      skills: ["Git", "Docker", "RESTful APIs"],
-      color: "orange"
-    },
-    {
-      title: "UI/UX Design Tools",
-      icon: Palette,
-      skills: ["Figma", "Canva", "Photoshop"],
-      color: "purple"
-    }
-  ];
-
-  const getColorClasses = (color: string) => {
-    const colors: { [key: string]: { bg: string; text: string; border: string; iconBg: string } } = {
-      blue: {
-        bg: "bg-blue-50",
-        text: "text-blue-700",
-        border: "border-blue-200",
-        iconBg: "bg-blue-600"
-      },
-      green: {
-        bg: "bg-green-50",
-        text: "text-green-700",
-        border: "border-green-200",
-        iconBg: "bg-green-600"
-      },
-      orange: {
-        bg: "bg-orange-50",
-        text: "text-orange-700",
-        border: "border-orange-200",
-        iconBg: "bg-orange-600"
-      },
-      purple: {
-        bg: "bg-pink-50",
-        text: "text-pink-700",
-        border: "border-pink-200",
-        iconBg: "bg-pink-600"
-      }
-    };
-    return colors[color];
-  };
-
   return (
-    <section id="skills" className="py-20 bg-gradient-to-b from-white to-blue-50">
-      <div className="container mx-auto px-6">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-blue-900 mb-4">
-            Skills & Expertise
-          </h2>
-          <div className="w-24 h-1 bg-blue-600 mx-auto"></div>
-        </div>
+    <section id="skills" className="section overflow-hidden">
+      <div className="bg-dots mask-fade-y pointer-events-none absolute inset-0 -z-10 opacity-60" />
+      <div className="container-narrow">
+        <SectionHeading
+          index="02"
+          eyebrow="skills"
+          title="Tech stack & expertise"
+          description="Tools and technologies I use to design, build, test and ship production software."
+        />
 
-        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
           {skillCategories.map((category, index) => {
-            const colors = getColorClasses(category.color);
             const Icon = category.icon;
-
             return (
-              <div
-                key={index}
-                className={`${colors.bg} border ${colors.border} rounded-xl p-6 hover:shadow-xl transition duration-300 transform hover:-translate-y-1`}
+              <Reveal
+                key={category.title}
+                delay={(index % 3) * 70}
+                className={cn(
+                  "glass glass-hover group flex flex-col p-6",
+                  category.featured &&
+                    "relative overflow-hidden md:col-span-2 lg:col-span-2"
+                )}
               >
-                <div className="flex items-center space-x-3 mb-4">
-                  <div className={`p-2 ${colors.iconBg} rounded-lg`}>
-                    <Icon className="w-5 h-5 text-white" />
+                {category.featured && (
+                  <div className="pointer-events-none absolute -right-20 -top-20 h-64 w-64 rounded-full bg-gradient-to-br from-indigo-500/20 to-cyan-400/20 blur-3xl" />
+                )}
+                <div className="mb-5 flex items-center justify-between gap-3">
+                  <div className="flex items-center gap-3">
+                    <span className="flex h-10 w-10 items-center justify-center rounded-xl border border-border bg-gradient-to-br from-indigo-500/15 to-cyan-500/15 text-primary transition-transform duration-300 group-hover:scale-110">
+                      <Icon className="h-5 w-5" />
+                    </span>
+                    <h3 className="text-lg font-semibold text-foreground">
+                      {category.title}
+                    </h3>
                   </div>
-                  <h3 className={`text-lg font-bold ${colors.text}`}>
-                    {category.title}
-                  </h3>
+                  <span className="hidden font-mono text-[11px] text-muted-foreground/80 sm:block">
+                    {category.path}
+                  </span>
                 </div>
-                <div className="flex flex-wrap gap-2">
-                  {category.skills.map((skill, skillIndex) => (
+                {category.note && (
+                  <p className="relative mb-5 max-w-lg text-sm leading-relaxed text-muted-foreground">
+                    {category.note}
+                  </p>
+                )}
+                <div className="relative mt-auto flex flex-wrap gap-2">
+                  {category.skills.map((skill) => (
                     <span
-                      key={skillIndex}
-                      className={`px-3 py-1 bg-white ${colors.text} rounded-full text-sm font-medium border ${colors.border}`}
+                      key={skill}
+                      className="chip group-hover:border-primary/30 group-hover:text-foreground"
                     >
                       {skill}
                     </span>
                   ))}
                 </div>
-              </div>
+              </Reveal>
             );
           })}
         </div>

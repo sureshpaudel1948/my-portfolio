@@ -1,116 +1,174 @@
-import { Mail, Phone, MapPin, Linkedin, Github } from "lucide-react";
+import {
+  ArrowUpRight,
+  Download,
+  Github,
+  Linkedin,
+  Mail,
+  MapPin,
+  Phone,
+  Send,
+} from "lucide-react";
+import SectionHeading from "@/components/SectionHeading";
+import Reveal from "@/components/Reveal";
+import { site } from "@/lib/site";
+
+type ContactItem = {
+  icon: typeof Mail;
+  label: string;
+  value: string;
+  href?: string;
+  external?: boolean;
+};
+
+const contactItems: ContactItem[] = [
+  {
+    icon: Mail,
+    label: "Email",
+    value: site.email,
+    href: `mailto:${site.email}`,
+  },
+  {
+    icon: Phone,
+    label: "Phone",
+    value: "+977 9826170721 / 9748429924",
+    href: "tel:+9779826170721",
+  },
+  {
+    icon: Linkedin,
+    label: "LinkedIn",
+    value: `${site.alias} · in/suresh-paudel`,
+    href: site.socials.linkedin,
+    external: true,
+  },
+  {
+    icon: Github,
+    label: "GitHub",
+    value: "@sureshpaudel1948",
+    href: site.socials.github,
+    external: true,
+  },
+  {
+    icon: MapPin,
+    label: "Location",
+    value: "Tinkune, Kathmandu, Nepal",
+  },
+];
 
 export default function Contact() {
-  const contactInfo = [
-    {
-      icon: Phone,
-      label: "Phone",
-      value: "+977 9826170721 / 9748429924",
-      href: "tel:+9779826170721"
-    },
-    {
-      icon: Mail,
-      label: "Email",
-      value: "sureshpaudel59@gmail.com",
-      href: "mailto:sureshpaudel59@gmail.com"
-    },
-    {
-      icon: Mail,
-      label: "Work Email",
-      value: "anupamatwork59@gmail.com",
-      href: "mailto:anupamatwork59@gmail.com"
-    },
-    {
-      icon: MapPin,
-      label: "Location",
-      value: "Tinkune, Kathmandu",
-      href: ""
-    }
-  ];
-
-  const socialLinks = [
-    {
-      icon: Linkedin,
-      label: "LinkedIn",
-      username: "suresh-paudel",
-      href: "https://www.linkedin.com/in/suresh-paudel-844344205/"
-    },
-    {
-      icon: Github,
-      label: "GitHub",
-      username: "sureshpaudel1948",
-      href: "https://github.com/sureshpaudel1948"
-    }
-  ];
-
   return (
-    <section id="contact" className="py-20 bg-gradient-to-br from-blue-900 via-blue-800 to-blue-950 text-white">
-      <div className="container mx-auto px-6">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            Get In Touch
-          </h2>
-          <div className="w-24 h-1 bg-white mx-auto"></div>
-          <p className="text-blue-100 mt-4 max-w-2xl mx-auto">
-            Feel free to reach out for collaborations, opportunities, or just a friendly chat
-          </p>
-        </div>
+    <section id="contact" className="section">
+      <div className="container-narrow">
+        <SectionHeading
+          index="06"
+          eyebrow="contact"
+          title="Let's build something great."
+          description="I'm open to full-time roles, collaborations and freelance projects: locally, remotely or abroad. My inbox is always open."
+        />
 
-        <div className="max-w-4xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
-            {contactInfo.map((item, index) => {
-              const Icon = item.icon;
-              return (
-                <div
-                  key={index}
-                  className="bg-white/10 backdrop-blur-sm rounded-xl p-6 hover:bg-white/20 transition duration-300 border border-white/20"
+        <div className="grid grid-cols-1 gap-6 lg:grid-cols-5">
+          {/* CTA terminal card */}
+          <Reveal className="glass relative min-w-0 overflow-hidden lg:col-span-3">
+            <div className="window-bar">
+              <span className="window-dot bg-red-400" />
+              <span className="window-dot bg-amber-400" />
+              <span className="window-dot bg-emerald-400" />
+              <span className="ml-3 font-mono text-xs text-muted-foreground">
+                zsh — hire-me
+              </span>
+            </div>
+            <div className="pointer-events-none absolute -bottom-24 -right-24 h-72 w-72 rounded-full bg-gradient-to-br from-indigo-500/25 to-cyan-400/20 blur-3xl" />
+            <div className="relative p-6 md:p-8">
+              <div className="space-y-2 font-mono text-[13px] leading-6 sm:text-sm">
+                <p>
+                  <span className="text-emerald-600 dark:text-emerald-400">➜</span>{" "}
+                  <span className="text-primary">~</span>{" "}
+                  <span className="text-foreground">npx hire anupam</span>
+                </p>
+                <p className="text-muted-foreground">
+                  ✔ Checking availability…{" "}
+                  <span className="text-emerald-600 dark:text-emerald-400">available</span>
+                </p>
+                <p className="text-muted-foreground">
+                  ✔ Relocation…{" "}
+                  <span className="text-emerald-600 dark:text-emerald-400">open to Europe</span>
+                </p>
+                <p className="text-muted-foreground">
+                  ✔ Response time…{" "}
+                  <span className="text-emerald-600 dark:text-emerald-400">&lt; 24h</span>
+                </p>
+                <p>
+                  <span className="text-emerald-600 dark:text-emerald-400">➜</span>{" "}
+                  <span className="text-primary">~</span>{" "}
+                  <span className="caret text-foreground" />
+                </p>
+              </div>
+
+              <h3 className="mt-8 text-2xl font-semibold text-foreground md:text-3xl">
+                Have a role or project in mind?
+              </h3>
+              <p className="mt-3 max-w-md text-muted-foreground">
+                Send me a message or grab my CV. I&apos;ll get back to you as
+                soon as possible.
+              </p>
+
+              <div className="mt-8 flex flex-wrap gap-3">
+                <a href={`mailto:${site.email}`} className="btn-primary">
+                  <Send className="h-4 w-4" />
+                  Say hello
+                </a>
+                <a
+                  href={site.cv.href}
+                  download={site.cv.downloadName}
+                  className="btn-ghost"
                 >
-                  <div className="flex items-start space-x-4">
-                    <div className="p-3 bg-blue-600 rounded-lg">
-                      <Icon className="w-6 h-6 text-white" />
-                    </div>
-                    <div>
-                      <h3 className="font-semibold text-blue-100 mb-1">
-                        {item.label}
-                      </h3>
-                      {item.href ? (
-                        <a
-                          href={item.href}
-                          className="text-white hover:text-blue-200 transition"
-                        >
-                          {item.value}
-                        </a>
-                      ) : (
-                        <p className="text-white">{item.value}</p>
-                      )}
-                    </div>
-                  </div>
-                </div>
+                  <Download className="h-4 w-4" />
+                  Download CV
+                </a>
+              </div>
+            </div>
+          </Reveal>
+
+          {/* Contact details */}
+          <div className="flex min-w-0 flex-col gap-3 lg:col-span-2">
+            {contactItems.map((item, index) => {
+              const Icon = item.icon;
+              const content = (
+                <>
+                  <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-border bg-gradient-to-br from-indigo-500/10 to-cyan-500/10 text-primary">
+                    <Icon className="h-5 w-5" />
+                  </span>
+                  <span className="min-w-0 flex-1">
+                    <span className="block font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
+                      {item.label}
+                    </span>
+                    <span className="block truncate font-medium text-foreground">
+                      {item.value}
+                    </span>
+                  </span>
+                  {item.href && (
+                    <ArrowUpRight className="h-4 w-4 shrink-0 text-muted-foreground transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-primary" />
+                  )}
+                </>
+              );
+
+              return (
+                <Reveal key={item.label} delay={index * 60}>
+                  {item.href ? (
+                    <a
+                      href={item.href}
+                      {...(item.external
+                        ? { target: "_blank", rel: "noopener noreferrer" }
+                        : {})}
+                      className="glass glass-hover group flex items-center gap-4 p-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                    >
+                      {content}
+                    </a>
+                  ) : (
+                    <div className="glass flex items-center gap-4 p-4">{content}</div>
+                  )}
+                </Reveal>
               );
             })}
-          </div>
-
-          <div className="bg-white/10 backdrop-blur-sm rounded-xl p-8 border border-white/20">
-            <h3 className="text-2xl font-bold mb-6 text-center">
-              Connect With Me
-            </h3>
-            <div className="flex flex-wrap justify-center gap-4">
-              {socialLinks.map((social, index) => {
-                const Icon = social.icon;
-                return (
-                  <a
-                    key={index}
-                    href={social.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center space-x-3 bg-white text-blue-900 px-6 py-3 rounded-lg font-semibold hover:bg-blue-50 transform hover:scale-105 transition duration-300 shadow-lg"
-                  >
-                    <Icon className="w-5 h-5" />
-                    <span>{social.label}</span>
-                  </a>
-                );
-              })}
-            </div>
           </div>
         </div>
       </div>

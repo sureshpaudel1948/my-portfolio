@@ -1,104 +1,166 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Download } from "lucide-react";
+import { site } from "@/lib/site";
+import { cn } from "@/lib/utils";
+import ThemeToggle from "@/components/ThemeToggle";
+
+const navLinks = [
+  { id: "about", label: "About" },
+  { id: "skills", label: "Skills" },
+  { id: "experience", label: "Experience" },
+  { id: "projects", label: "Projects" },
+  { id: "education", label: "Education" },
+  { id: "contact", label: "Contact" },
+];
 
 export default function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [activeId, setActiveId] = useState("home");
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
-
-    window.addEventListener("scroll", handleScroll);
+    const handleScroll = () => setIsScrolled(window.scrollY > 24);
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Highlight the nav link for the section currently in view
+  useEffect(() => {
+    const sections = ["home", ...navLinks.map((l) => l.id)]
+      .map((id) => document.getElementById(id))
+      .filter((el): el is HTMLElement => el !== null);
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) setActiveId(entry.target.id);
+        });
+      },
+      { rootMargin: "-45% 0px -50% 0px" }
+    );
+
+    sections.forEach((section) => observer.observe(section));
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    document.body.style.overflow = isMobileMenuOpen ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isMobileMenuOpen]);
+
   const scrollToSection = (id: string) => {
-    const element = document.getElementById(id);
-    element?.scrollIntoView({ behavior: "smooth" });
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
     setIsMobileMenuOpen(false);
   };
 
-  const navLinks = [
-    { id: "home", label: "Home" },
-    { id: "about", label: "About" },
-    { id: "skills", label: "Skills" },
-    { id: "education", label: "Education" },
-    { id: "certifications", label: "Certifications" },
-    { id: "experience", label: "Experience" },
-    { id: "projects", label: "Projects" },
-    { id: "contact", label: "Contact" }
-  ];
-
   return (
-    <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled
-          ? "bg-white shadow-lg py-4"
-          : "bg-transparent py-6"
-      }`}
+    <header
+      className={cn(
+        "fixed inset-x-0 top-0 z-50 transition-all duration-500",
+        isScrolled || isMobileMenuOpen
+          ? "border-b border-border/70 bg-background/75 py-3 backdrop-blur-xl"
+          : "bg-transparent py-5"
+      )}
     >
-      <div className="container mx-auto px-6">
-        <div className="flex items-center justify-between">
-          <button
-            onClick={() => scrollToSection("home")}
-            className={`text-2xl font-bold transition-colors ${
-              isScrolled ? "text-blue-900" : "text-white"
-            }`}
-          >
-            Anupam Paudel
-          </button>
+      <nav className="container-narrow flex items-center justify-between gap-4">
+        <button
+          onClick={() => scrollToSection("home")}
+          className="group flex items-center gap-3 rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          aria-label="Back to top"
+        >
+          <span className="relative block h-10 w-10 shrink-0 rounded-full bg-gradient-to-br from-indigo-400 to-cyan-300 p-[2px] transition-transform duration-300 group-hover:scale-105">
+            <img
+              src={site.images.profile}
+              alt={site.name}
+              className="h-full w-full rounded-full object-cover object-top"
+            />
+          </span>
+          <span className="text-left leading-tight">
+            <span className="block font-display text-base font-semibold text-foreground">
+              {site.name}
+            </span>
+            <span className="block font-mono text-[11px] text-muted-foreground">
+              ~/frontend-developer
+            </span>
+          </span>
+        </button>
 
-          <div className="hidden lg:flex items-center space-x-8">
-            {navLinks.map((link) => (
+        <div className="hidden items-center gap-1 rounded-full border border-border bg-card/60 p-1 backdrop-blur-md lg:flex">
+          {navLinks.map((link) => (
+            <button
+              key={link.id}
+              onClick={() => scrollToSection(link.id)}
+              className={cn(
+                "rounded-full px-4 py-2 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+                activeId === link.id
+                  ? "bg-muted text-foreground"
+                  : "text-muted-foreground hover:text-foreground"
+              )}
+            >
+              {link.label}
+            </button>
+          ))}
+        </div>
+
+        <div className="flex items-center gap-2">
+          <ThemeToggle />
+          <a
+            href={site.cv.href}
+            download={site.cv.downloadName}
+            className="btn-primary hidden !px-5 !py-2.5 sm:inline-flex"
+          >
+            <Download className="h-4 w-4" />
+            Download CV
+          </a>
+          <button
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            className="icon-btn lg:hidden"
+            aria-label="Toggle menu"
+            aria-expanded={isMobileMenuOpen}
+          >
+            {isMobileMenuOpen ? (
+              <X className="h-5 w-5" />
+            ) : (
+              <Menu className="h-5 w-5" />
+            )}
+          </button>
+        </div>
+      </nav>
+
+      {isMobileMenuOpen && (
+        <div className="container-narrow lg:hidden">
+          <div className="mt-4 flex h-[calc(100dvh-5rem)] flex-col gap-1 pb-8">
+            {navLinks.map((link, i) => (
               <button
                 key={link.id}
                 onClick={() => scrollToSection(link.id)}
-                className={`font-medium transition-colors hover:text-blue-600 ${
-                  isScrolled ? "text-gray-700" : "text-white"
-                }`}
+                className={cn(
+                  "animate-hero-in rounded-xl px-4 py-3 text-left font-display text-2xl font-semibold transition-colors",
+                  activeId === link.id
+                    ? "bg-muted text-foreground"
+                    : "text-muted-foreground hover:text-foreground"
+                )}
+                style={{ animationDelay: `${i * 40}ms` }}
               >
                 {link.label}
               </button>
             ))}
+            <a
+              href={site.cv.href}
+              download={site.cv.downloadName}
+              className="btn-primary mt-6 w-full"
+            >
+              <Download className="h-4 w-4" />
+              Download CV
+            </a>
           </div>
-
-          <button
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className={`lg:hidden p-2 ${
-              isScrolled ? "text-blue-900" : "text-white"
-            }`}
-            aria-label="Toggle menu"
-          >
-            {isMobileMenuOpen ? (
-              <X className="w-6 h-6" />
-            ) : (
-              <Menu className="w-6 h-6" />
-            )}
-          </button>
         </div>
-
-        {isMobileMenuOpen && (
-          <div className="lg:hidden mt-6 pb-6 border-t border-gray-200">
-            <div className="flex flex-col space-y-4 mt-6">
-              {navLinks.map((link) => (
-                <button
-                  key={link.id}
-                  onClick={() => scrollToSection(link.id)}
-                  className={`text-left font-medium transition-colors hover:text-blue-600 ${
-                    isScrolled ? "text-gray-700" : "text-white"
-                  }`}
-                >
-                  {link.label}
-                </button>
-              ))}
-            </div>
-          </div>
-        )}
-      </div>
-    </nav>
+      )}
+    </header>
   );
 }
